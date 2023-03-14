@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title>Главная</title>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="css/style.min.css">
+	<link rel="shortcut icon" href="">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+	<div class="line"></div>
+	<div class="wrapper">
+
+		<main class="page">
+			<section class="section_dashboard  dashboard">
+				<div class="dashboard__left-bar left-bar _active">
+					<div class="left-bar__search search">
+						<label for="search" class="search__icon">
+							<img src="img/serch.svg" alt="search">
+						</label>
+						<input id="search" type="text" class="search__input" placeholder="Поиск">
+
+					</div>
+					<div class="left-bar__items" id="allUsers">
+						<!-- Выводим список подключенных юзеров -->
+					</div>
+					<div class="left-bar__settings settings">
+						<div class="settings__comments comments">
+							<img src="img/Icon.svg" alt="" class="comments__img2">
+							<img src="img/Icon2.svg" alt="" class="comments__img1">
+
+						</div>
+						<div class="settings__setting setting _active">
+							<img src="img/setting2.svg" alt="" class="setting__img1">
+							<img src="img/setting.svg" alt="" class="setting__img2">
+						</div>
+					</div>
+				</div>
+				<div class="dashboard__right-bar right-bar">
+					<div class="hellWindow">
+					</div>
+
+					<div class="right-bar__header right-header">
+						<div class="menu__icon icon-menu _active">
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+						<div class="right-header__image">
+							<img src="img/man.png " alt="">
+						</div>
+						<div class="right-header__name">Ina Roberson</div>
+
+
+						<div id="typing-status">
+						  <span class="dot"></span>
+						  <span class="dot"></span>
+						  <span class="dot"></span>
+						</div>
+
+
+					</div>
+					<div class="right-bar__main right-main"  id="allMessagesMainContainer">
+
+						<div class="popup__buttons">
+							<button>
+								<span>ответить</span>
+								<img src="img/answer.svg" alt="">
+							</button>
+							<button><span>переслать</span>
+								<img src="img/mail.svg" alt=""></button>
+							<button><span>скопировать</span>
+								<img src="img/copy.svg" alt=""></button>
+							<button><span>редактировать</span>
+								<img src="img/edit.svg" alt=""></button>
+						</div>
+						<div class="right-main__items" id="allMessages">
+							<!-- <div class="right-main__item main-item">
+								<div class="main-item__info">
+									<div class="main-item__img">
+										<img src="img/man.png" alt="">
+									</div>
+									<div class="main-item__name">Stephen Park</div>
+									<div class="main-item__date">12:45</div>
+								</div>
+								<div class="main-item__file file">
+									<div class="file__topContent">
+										<a href="files/file.pdf" download>Human Design Guidelines.pdf</a>
+										<div class="main-item__fileSize">760.90 KB</div>
+									</div>
+									<button class="file__button">Downloading …</button>
+								</div>
+							</div> -->
+
+							<!--	 <div class="right-main__item main-item">
+								<div class="main-item__info">
+									<div class="main-item__img">
+										<img src="img/man.png" alt="">
+									</div>
+									<div class="main-item__name">Stephen Park</div>
+									<div class="main-item__date">12:45</div>
+								</div>
+								<div class="main-item__file file">
+									<div class="file__topContent audiocontent">
+										<button class="audiocontent-play">
+											<img src="img/play.svg" alt="">
+											<img src="img/stop.svg" alt="">
+										</button>
+										<div class="Chart">
+											<div class="Chart__cur"></div>
+											<img src="img/Chart.png" alt="">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="right-main__item main-item rigth item-image">
+								<div class="main-item__info">
+									<div class="main-item__image">
+										<img src="img/man.png" alt="">
+									</div>
+									<div class="main-item__name">Stephen Park</div>
+									<div class="main-item__date">12:45</div>
+								</div>
+								<div class="main-item__images">
+									<div class="main-item__image _ibg">
+										<img src="img/comm1.png" alt="" class="image-preview">
+										<div class="galerie">
+											<img src="img/comm1.png" alt="" class="image-galerie">
+										</div>
+									</div>
+
+									<div class="main-item__image _ibg">
+										<img src="img/img3.jpeg" alt="" class="image-preview">
+										<div class="galerie">
+											<img src="img/img3.jpeg" alt="" class="image-galerie">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="right-main__item main-item rigth">
+								<div class="main-item__info">
+									<div class="main-item__image">
+										<img src="img/man.png" alt="">
+									</div>
+									<div class="main-item__name">Stephen Park</div>
+									<div class="main-item__date">12:45</div>
+								</div>
+								<div class="main-item__text">
+									Every large design company whether it’s a multi-national branding corporation or a regular down at
+									heel tatty magazine publisher needs to fill holes in the workforce. If the canny freelance designer
+									plays his or her cards right, he can earn a tidy sum while essentially.
+								</div>
+							</div>
+							<div class="right-main__item main-item item-image">
+								<div class="main-item__info">
+									<div class="main-item__image">
+										<img src="img/man.png" alt="">
+									</div>
+									<div class="main-item__name">Stephen Park</div>
+									<div class="main-item__date">12:45</div>
+								</div>
+								<div class="main-item__images">
+									<div class="main-item__image _ibg">
+										<img src="img/img1.jpg" alt="" class="image-preview">
+										<div class="galerie">
+											<img src="img/img1.jpg" alt="" class="image-galerie">
+										</div>
+									</div>
+
+									<div class="main-item__image _ibg">
+										<img src="img/comm2.png" alt="" class="image-preview">
+										<div class="galerie">
+											<img src="img/comm2.png" alt="" class="image-galerie">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="right-main__item main-item rigth item-image">
+								<div class="main-item__info">
+									<div class="main-item__image">
+										<img src="img/man.png" alt="">
+									</div>
+									<div class="main-item__name">Stephen Park</div>
+									<div class="main-item__date">12:45</div>
+								</div>
+								<div class="main-item__images">
+									<div class="main-item__image _ibg">
+										<img src="img/comm1.png" alt="" class="image-preview">
+										<div class="galerie">
+											<img src="img/comm1.png" alt="" class="image-galerie">
+										</div>
+									</div>
+
+									<div class="main-item__image _ibg">
+										<img src="img/comm2.png" alt="" class="image-preview">
+										<div class="galerie">
+											<img src="img/comm2.png" alt="" class="image-galerie">
+										</div>
+									</div>
+								</div>
+							</div> -->
+
+
+						</div>
+					</div>
+					<div class="right-bar__footer right-footer">
+						<div class="right-footer-wrapper">
+
+							<div class="right-footer__icon">
+								<a href="#">
+									<img src="img/Group.svg" alt="">
+								</a>
+							</div>
+							<div class="right-footer__content footer-content">
+								<label for="file" class="footer-content__file-label">
+									<img src="img/file.svg" alt="">
+								</label>
+								<input id="file" type="file" class="footer-content__file">
+
+								<label for="image" class="footer-content__img-label">
+									<img src="img/img.svg" alt="">
+								</label>
+								<input id="image" type="file" class="footer-content__img">
+								<input type="text" id="textMessage" class="footer-content__text" placeholder="Напишите сообщение..." >
+								<button class="footer-content__send">
+									<img src="img/send.svg" alt="">
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="shadow"></div>
+			</section>
+		</main>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="js/app.min.js"></script>
+	<script src="js/ws.js"></script>
+</body>
+
+</html>
