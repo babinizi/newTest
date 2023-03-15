@@ -38,9 +38,6 @@ io.on('connection', (socket) => {
 
     socket.join(`${sender}-${receiver}`);
 
-    const senderName = getUsernameById(sender);
-    const receiverName = getUsernameById(receiver);
-
     io.to(`${sender}-${receiver}`).emit('show message', {allMessages: allMessages});
   });
 
@@ -77,6 +74,8 @@ io.on('connection', (socket) => {
     connections.splice(connections.indexOf(socket), 1);
     console.log('Disconnected');
 
+    io.emit('userLeft', socket.id );
+
     const users = Array.from(connections).map((conn) => ({ id: conn.id, name: conn.data.username }));
     io.emit('userList', users);
   });
@@ -85,19 +84,29 @@ io.on('connection', (socket) => {
   socket.on('type', (data) => {
     const {receiver, sender, status} = data;
 
-    socket.broadcast.to(`${receiver}-${sender}`).emit('add type', { status: status, id: socket.id })
+    io.to(`${receiver}`).emit('add type', { status: status, id: sender});
   });
 
   socket.on('isRead', (data) => {
-  allMessages.forEach((message) => {
+    const lastMessage = allMessages[allMessages.length - 1];
+
+    if (!lastMessage) return;
+
+    if (lastMessage.sender == socket.id) return;
+
+    allMessages.forEach((message) => {
       if ((message.sender === data.sender && message.recipient === data.receiver) || (message.sender === data.receiver && message.recipient === data.sender)) {
         message.isRead = true;
       }
     });
 
-    io.to(`${data.receiver}-${data.sender}`).emit('show message', { allMessages: allMessages });
+    // Проверяем, открыт ли чат получателем
+    const room = io.sockets.adapter.rooms.get(`${data.receiver}-${data.sender}`);
+    if (room && room.size > 0) {
+      // Если чат открыт, отправляем обновленный список сообщений только получателю
+      io.to(`${data.receiver}-${data.sender}`).emit('show message', { allMessages: allMessages });
+    }
   });
-
 });
 
 

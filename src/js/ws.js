@@ -5,45 +5,78 @@ var name = prompt();
 let receiverName;
 var socket = io.connect();
 
+let prevSender;
+let prevReceiver;
+
 var recipient; //Получатель (переменная) используется везде где надо
-var messageCounter = 0;
 
 const userListContainer = document.getElementById('allUsers');
 
 socket.emit('userList', {name: name});
 
-socket.on('userList', (userList) => {
-	const usersHTML = userList.map(({ id, name }) => `
+let userList = []; // Сохраняем текущий список пользователей
+
+socket.on('userList', (newUserList) => {
+  // Ищем только новых пользователей
+  const newUsers = newUserList.filter((newUser) => !userList.find((user) => user.id === newUser.id));
+
+  // Добавляем новых пользователей в список
+  userList = [...userList, ...newUsers];
+
+  // Генерируем HTML для новых пользователей и добавляем его на страницу
+  const newUsersHTML = newUsers.map(({ id, name }) => `
     <div class="left-bar__item item">
-							<div class="item__content">
-								<div class="item__image">
-									<div class="item__image-counter ">0</div>
-									<img src="img/Image.png" alt="human">
-								</div>
-								<div class="item__info">
-									<div class="item__text">
-										<div class="item__name">${id == socket.id ? name + " (Вы)" : name}</div>
-										<div class="item__date">~</div>
-									</div>
-									<div class="item__description">
-										Сообщений пока что нет
-									</div>
-									<input type="text" class="re" hidden value="${id}">
-								</div>
-							</div>
-						</div>
+      <div class="item__content">
+        <div class="item__image">
+          <div class="item__image-counter ">0</div>
+          <img src="img/Image.png" alt="human">
+        </div>
+        <div class="item__info">
+          <div class="item__text">
+            <div class="item__name">${id == socket.id ? name + " (Вы)" : name}</div>
+            <div class="item__date">~</div>
+          </div>
+          <div class="item__description">
+            Сообщений пока что нет
+
+          </div>
+          <input type="text" class="re" hidden value="${id}">
+        </div>
+      </div>
+    </div>
   `).join('');
-  userListContainer.innerHTML = usersHTML;
+
+  userListContainer.insertAdjacentHTML('beforeend', newUsersHTML); // добавляем HTML только для новых пользователей на страницу
 });
+
+socket.on('userLeft', (userId) => {
+  // Находим индекс пользователя, который покинул чат
+  const index = userList.findIndex((user) => user.id === userId);
+
+  if (index !== -1) {
+    // Удаляем пользователя из списка
+    userList.splice(index, 1);
+
+    // Удаляем HTML для пользователя из списка на странице
+    const userItem = userListContainer.querySelector(`[value="${userId}"]`).closest('.item');
+    userListContainer.removeChild(userItem);
+  }
+});
+
 
 
 //Выбор чата слева
 $('.left-bar__items').on('click', '.item', function() {
+		if ($(this).find('.item__content').hasClass('_active')) {
+			return;
+		}
 		// Удаляем класс _active у других элементов
     $('.left-bar__items .item').find('.item__content').not(this).removeClass('_active');
 
     // Добавляем класс _active к текущему элементу
     $(this).find('.item__content').addClass('_active');
+
+
 
 		if ($(this).find('.item__image-counter').hasClass('_active')) {
 			$(this).find('.item__image-counter').removeClass('_active');
@@ -52,6 +85,9 @@ $('.left-bar__items').on('click', '.item', function() {
 		$('.hellWindow').css('display', 'none');
 
     recipient = $(this).find('.re').val();
+		prevReceiver = $(this).find('.re').val();
+		prevSender = socket.id;
+
 		receiverName = $(this).find('.item__name').html();
 		$('.right-header__name').text(receiverName);
 
@@ -147,19 +183,19 @@ $('.footer-content__send').click(function () {
 })
 
 socket.on('add type', function(data) {
-	if (data.id != socket.id) {
-		addType(data);
+	const activeChatContainer = $('.left-bar__item.item input.re[value="' + data.id + '"]').closest('.item__content');
+	if (activeChatContainer.hasClass('_active')) {
+	addType(data);
 	}
 });
 
 
 function addType(data) {
 	if (data.status == true) {
-		$('#typing-status').css('display', 'flex');
+		$('.typing-status').css('display', 'flex');
 	} else {
-		$('#typing-status').css('display', 'none');
+		$('.typing-status').css('display', 'none');
 	}
-
 }
 
 socket.on('updateChatInfo', (data) => {
@@ -193,6 +229,8 @@ socket.on('updateChatInfo', (data) => {
 
 	// Перемещаем элемент в начало родительского элемента
 	senderParent.insertBefore(senderContainer.parentNode, senderParent.firstChild);
+	const audio = document.getElementById('myAudio');
 
-
+	audio.muted = false;
+	audio.play();
 })
